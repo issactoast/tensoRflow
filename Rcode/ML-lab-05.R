@@ -19,7 +19,7 @@ y <- tf$placeholder(tf$float32, shape(6L, 1L))
 # W vector is our parameter to be estimated.
 # Here W include the parameter b in the lecture.
 W <- tf$Variable(tf$constant(c(1.0, 1.0, 1.0),
-                                shape = c(3L, 1L)),
+                    shape = c(3L, 1L)),
                     name = 'parameter')
 
 # Calculate y_hat
