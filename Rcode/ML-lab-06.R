@@ -1,5 +1,5 @@
 # ML lab 06: Softmax Regression
-# Source: https://youtu.be/2FeWGgnyLSw?list=PLlMkM4tgfjnLSOjrEJN31gZATbcj_MpUm
+# Source: https://youtu.be/VRnubDzIy3A?list=PLlMkM4tgfjnLSOjrEJN31gZATbcj_MpUm
 
 library(tensorflow)
 
