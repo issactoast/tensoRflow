@@ -1,4 +1,4 @@
-# ML lab 06, 07: Softmax Regression
+# ML lab 06-01,02: Softmax Regression
 # Source: https://youtu.be/VRnubDzIy3A?list=PLlMkM4tgfjnLSOjrEJN31gZATbcj_MpUm
 # Source: https://youtu.be/E-io76NlsqA?list=PLlMkM4tgfjnLSOjrEJN31gZATbcj_MpUm
 
