@@ -1,4 +1,4 @@
-# ML lab 07-02: MNIST Data
+# ML lab 07-02: MNIST Data 
 # Source: https://youtu.be/ktd5yrki_KA?list=PLlMkM4tgfjnLSOjrEJN31gZATbcj_MpUm
 
 library(tensorflow)
