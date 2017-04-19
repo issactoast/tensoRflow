@@ -79,3 +79,7 @@ check <- function(num){
           main = paste("predicted as", pred))
 }
 check( 310 )
+
+
+# Close session
+sess$close()
