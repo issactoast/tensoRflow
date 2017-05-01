@@ -12,12 +12,13 @@ mnist <- datasets$mnist$read_data_sets("MNIST-data", one_hot = TRUE)
 
 ### MNIST data image  28 by 28 -> 1 by 784 vector
 str(mnist$train$images)
-sample <- matrix(1 - mnist$train$images[5,], nrow = 28) * 255
-grays = rgb(red = 0:255/255, blue = 0:255/255, green = 0:255/255)
-rotate <- function(x) apply(t(x), 2, rev)
-heatmap(rotate(sample), Rowv=NA, Colv=NA,
-        labRow = FALSE, labCol = FALSE,
-        col = grays, scale = "none")
+sample <- matrix(1 - mnist$train$images[6,], nrow = 28, byrow = T)
+mat.plot <- function(mat, ...){
+  image(t(apply(mat, 2, rev)),
+        col  = gray((0:255)/255),
+        axes = F, ...)
+}
+mat.plot(sample)
 
 ### X is a placeholder for the 1 by 784 images vector
 tf$reset_default_graph()
@@ -87,17 +88,12 @@ sess$run(accuracy, feed_dict=dict(X = mnist$test$images, y = mnist$test$labels))
 
 ## Let us take a look at the data.
 check <- function(num){
-  sample <- matrix(1 - mnist$test$images[num,], nrow = 28)
-  grays = rgb(red = 0:255/255, blue = 0:255/255, green = 0:255/255)
-  rotate <- function(x) apply(t(x), 2, rev)
+  sample <- matrix(1 - mnist$test$images[num,], nrow = 28, byrow = TRUE)
   pred <- sess$run(tf$argmax(y_hat, 1L), feed_dict=dict( X = matrix(mnist$test$images[num,], nrow = 1),
                                           y = matrix(mnist$test$labels[num,], nrow = 1) ))
-  heatmap(rotate(sample * 255), Rowv=NA, Colv=NA,
-          labRow = FALSE, labCol = FALSE,
-          col = grays, scale = "none",
-          main = paste("predicted as", pred))
+  mat.plot(sample, main = paste("predicted as", pred))
 }
-check( 318 )
+check( 151 )
 
 
 # Close session
