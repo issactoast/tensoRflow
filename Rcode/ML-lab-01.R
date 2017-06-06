@@ -38,4 +38,3 @@ with(tf$Session() %as% sess, {
   print(sess$run(adder.node,
                  feed_dict = dict(a = c(1:10), b = c(21:30))))
 })
-
