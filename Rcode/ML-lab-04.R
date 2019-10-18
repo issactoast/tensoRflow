@@ -2,6 +2,7 @@
 # Source: https://youtu.be/Y0EF9VqRuEA?list=PLlMkM4tgfjnLSOjrEJN31gZATbcj_MpUm
 
 library(tensorflow)
+tf$reset_default_graph()
 
 # Given data
 X.data <- matrix(c(73, 80, 75,
@@ -47,9 +48,11 @@ result <- cbind(1:20, result)
 colnames(result) <- c("step", "cost", "intercept",
                       "beta1", "beta2", "beta3")
 head(result)
+plot(result[,"step"], result[,"cost"])
 
 # Check our result
 beta.est <- as.vector(result[20,3:6])
+
 #Calculate y hat & compare y.data
 X.data %*% beta.est
 y.data
