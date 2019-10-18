@@ -22,6 +22,10 @@ y.data[7:8,3] <- 1
 
 y.data
 
+# plot(X.data[,2], X.data[,3],
+#      pch = y.data,
+#      col = c("red", "blue", "green")[rep(c(1,2,3), each = 3)])
+
 # We think our model is muti-variate regression, i.e.,
 # y ~ X %*% beta + e
 # y is 8 by 3 matrix
@@ -64,7 +68,8 @@ sess$run(tf$global_variables_initializer())
 for (step in 1:10000) {
   sess$run(train, feed_dict = dict(X = X.data, y = y.data))
   if (step %% 200 == 0)
-  cat("step", step, "-", sess$run(cross_entropy, feed_dict = dict(X = X.data, y = y.data)), "\n")
+  cat("step", step, "-", sess$run(cross_entropy,
+                                  feed_dict = dict(X = X.data, y = y.data)), "\n")
 }
 
 beta_hat <- sess$run(beta)
