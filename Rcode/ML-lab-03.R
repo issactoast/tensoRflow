@@ -2,11 +2,13 @@
 # Source: <iframe width="560" height="315" src="https://www.youtube.com/embed/mQGwjrStQgg?list=PLlMkM4tgfjnLSOjrEJN31gZATbcj_MpUm" frameborder="0" allowfullscreen></iframe>
 
 library(tensorflow)
+# tf$reset_default_graph()
+
 
 # Step1: Build graph
 # Set the variables in tensorflow
-x <- tf$placeholder(tf$float32, shape(10L, 1L))
-y <- tf$placeholder(tf$float32, shape(10L, 1L))
+x <- tf$placeholder(tf$float32, shape(100L, 1L))
+y <- tf$placeholder(tf$float32, shape(100L, 1L))
 
 # W is a slope and  b is an intercept.
 # W <- tf$Variable(tf$zeros(shape(1L, 1L)), name = 'weight')
@@ -20,17 +22,19 @@ y_hat <- tf$matmul(x, W) + b
 cost <- tf$reduce_mean(tf$square(y - y_hat))
 
 # Gradient Descent
-optimizer <- tf$train$GradientDescentOptimizer(learning_rate = 0.01)
+optimizer <- tf$train$GradientDescentOptimizer(learning_rate = 0.001)
 train <- optimizer$minimize(cost)
 
 sess <- tf$Session()
 sess$run(tf$global_variables_initializer())
 
 # Training
-x.data <- matrix(c(1:10), ncol = 1)
-y.data <- 2 * x.data + 3 + rnorm(10, mean = 0, sd = 0.5)
-result <- matrix(0, nrow = 2000, ncol = 3)
-for (i in 1:2000) {
+set.seed(1234)
+x.data <- matrix(rnorm(100, 10, 3), ncol = 1)
+y.data <- 2 * x.data + 3 + rnorm(100, mean = 0, sd = 4)
+
+result <- matrix(0, nrow = 20000, ncol = 3)
+for (i in 1:20000) {
   result[i, ] <- unlist(sess$run(c(cost, W, b, train),
                                  feed_dict = dict(x = x.data, y = y.data)) )
   if (i %% 200 == 0 ) print(result[i, 2:3])
@@ -38,13 +42,10 @@ for (i in 1:2000) {
 
 # Check our answer
 # Cost function decreasing
-plot(c(1000:2000), result[c(1000:2000),1])
+plot(seq(1000, 20000, by = 1000), result[seq(1000, 20000, by = 1000), 1])
 
 # Let's see what our data looks like?
-plot(x.data, y.data, xlim = c(0, 10), ylim = c(0, 30))
-
-sess$run(W)
-sess$run(b)
+plot(x.data, y.data, xlim = c(0, 20), ylim = c(0, 50))
 abline(sess$run(b), sess$run(W))
 
 # Close session
