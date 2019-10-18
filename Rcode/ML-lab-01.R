@@ -21,7 +21,7 @@ node3 <- tf$add(node1, node2)
 
 print(node2)
 sess <- tf$Session()
-sess$run(node2)
+sess$run(node3)
 sess$close()
 
 
