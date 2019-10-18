@@ -8,16 +8,17 @@ library(tensorflow)
 # X and y data
 # Let's assume our data determined by the
 # parameter 2 and 3, but noise hides that.
-x <- as.numeric(c(1:10))
-y <- 2 * x + 3 + rnorm(10, mean = 0, sd = 0.5)
+set.seed(1234)
+x <- as.numeric(rnorm(100, 10, 3))
+y <- 2 * x + 3 + rnorm(100, mean = 0, sd = 4)
 
 # Let's see what our data looks like?
-plot(x, y, xlim = c(0, 10), ylim = c(0, 30))
+plot(x, y)
 
 # Set the variables in tensorflow
 # W is a slope and  b is an intercept.
 W <- tf$Variable(tf$constant(1.0), name = 'weight')
-b <- tf$Variable(tf$constant(2.0), name = 'weight')
+b <- tf$Variable(tf$constant(1.0), name = 'weight')
 
 # Calculate y_hat
 y_hat <- x * W + b
@@ -26,7 +27,7 @@ y_hat <- x * W + b
 cost <- tf$reduce_mean(tf$square(y - y_hat))
 
 # Gradient Descent
-optimizer <- tf$train$GradientDescentOptimizer(learning_rate = 0.01)
+optimizer <- tf$train$GradientDescentOptimizer(learning_rate = 0.001)
 train <- optimizer$minimize(cost)
 
 sess <- tf$Session()
@@ -41,6 +42,8 @@ for (i in 1:3000) {
 # Check our answer
 sess$run(W)
 sess$run(b)
+
+plot(x, y)
 abline(sess$run(b), sess$run(W))
 
 # Close session
