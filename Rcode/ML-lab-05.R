@@ -1,7 +1,8 @@
 # ML lab 05: Logistic regression
 # Source: https://youtu.be/2FeWGgnyLSw?list=PLlMkM4tgfjnLSOjrEJN31gZATbcj_MpUm
 
-library(tensorflow)
+library(tensorflow) 
+tf$reset_default_graph()
 
 # Given data
 X.data <- cbind(1:6, c(2,3,1,3,3,2))
@@ -10,6 +11,12 @@ X.data
 
 y.data <- matrix(c(0, 0, 0, 1, 1, 1), ncol = 1)
 y.data
+
+# Problem plot
+plot(X.data[,2], X.data[,3],
+     pch = y.data,
+     col = c("red", "blue")[y.data +1])
+
 
 # Step1: Build graph
 # Set the variables in tensorflow
@@ -42,6 +49,7 @@ result <- matrix(0, nrow = 5000, ncol = 4)
 for (i in 1:5000) {
   result[i,] <- unlist(sess$run(c(cost, W, train),
                                 feed_dict = dict(X = X.data, y = y.data)))
+  if (i %% 500 == 0 ) print(c(i, result[i,]))
 }
 result <- cbind(1:5000, result)
 colnames(result) <- c("step", "cost", "b",
