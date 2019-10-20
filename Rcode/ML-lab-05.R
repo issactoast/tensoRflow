@@ -1,8 +1,9 @@
 # ML lab 05: Logistic regression
 # Source: https://youtu.be/2FeWGgnyLSw?list=PLlMkM4tgfjnLSOjrEJN31gZATbcj_MpUm
 
-library(tensorflow) 
-tf$reset_default_graph()
+library(tensorflow)
+# install_tensorflow()
+# tf$reset_default_graph()
 
 # Given data
 X.data <- cbind(1:6, c(2,3,1,3,3,2))
@@ -38,7 +39,7 @@ cost <- -tf$reduce_mean(y * tf$log(y_hat) +
                           (1 - y) * tf$log(1 - y_hat))
 
 # Gradient Descent
-optimizer <- tf$train$GradientDescentOptimizer(learning_rate = 0.1)
+optimizer <- tf$train$GradientDescentOptimizer(learning_rate = 0.01)
 train <- optimizer$minimize(cost)
 
 sess <- tf$Session()

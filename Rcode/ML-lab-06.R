@@ -3,6 +3,7 @@
 # Source: https://youtu.be/E-io76NlsqA?list=PLlMkM4tgfjnLSOjrEJN31gZATbcj_MpUm
 
 library(tensorflow)
+tf$reset_default_graph()
 
 # Given data
 X.data <- rbind(c(1, 2, 1, 1),
